@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# next.js
+.next/
+out/
+
+# env / secrets
+.env
+.env*.local
+
+# tooling / deploy
+.vercel
+.orchids
+.kiro
+config.bat
+-p
+
+# misc
+*.tsbuildinfo
+next-env.d.ts
