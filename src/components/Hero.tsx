@@ -23,7 +23,7 @@ export function Hero() {
       setPhase("content");
       return;
     }
-    const hold = setTimeout(() => setPhase("dissolve"), 3000);
+    const hold = setTimeout(() => setPhase("dissolve"), 1000);
     return () => clearTimeout(hold);
   }, []);
 
@@ -78,9 +78,9 @@ export function Hero() {
               <Image
                 src="/logo.png"
                 alt="Synteks"
-                width={360}
-                height={260}
-                className="w-[220px] sm:w-[300px] md:w-[360px] h-auto object-contain drop-shadow-[0_0_50px_rgba(200,240,0,0.35)]"
+                width={520}
+                height={380}
+                className="w-[300px] sm:w-[400px] md:w-[480px] lg:w-[520px] h-auto object-contain drop-shadow-[0_0_60px_rgba(200,240,0,0.4)]"
                 priority
               />
 

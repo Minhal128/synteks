@@ -19,14 +19,14 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="relative bg-[#050505] pt-16 pb-8 overflow-hidden border-t border-zinc-900">
-      {/* Moving linear SYNTEKS watermark */}
-      <div className="absolute inset-x-0 bottom-0 h-[40%] overflow-hidden pointer-events-none select-none">
-        <div className="flex w-max animate-slide whitespace-nowrap">
+    <footer className="relative bg-[#050505] pt-16 pb-16 overflow-hidden border-t border-zinc-900">
+      {/* Moving linear SYNTEKS watermark — lifted so letters aren't clipped */}
+      <div className="absolute inset-x-0 bottom-8 md:bottom-12 overflow-hidden pointer-events-none select-none">
+        <div className="flex w-max animate-slide whitespace-nowrap items-center">
           {[0, 1].map((copy) => (
             <span
               key={copy}
-              className="font-display text-[14vw] md:text-[12vw] leading-none text-zinc-900 tracking-wider px-8"
+              className="font-display text-[12vw] md:text-[10vw] leading-none text-zinc-900 tracking-wider px-8"
             >
               SYNTEKS&nbsp;&nbsp;SYNTEKS&nbsp;&nbsp;SYNTEKS&nbsp;&nbsp;
             </span>
