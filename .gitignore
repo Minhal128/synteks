@@ -6,7 +6,6 @@ node_modules/
 out/
 
 # env / secrets
-.env
 .env*.local
 
 # tooling / deploy

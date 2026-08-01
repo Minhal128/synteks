@@ -144,7 +144,7 @@ export function Hero({ ready = true }: { ready?: boolean }) {
                 alt="Synteks"
                 width={1200}
                 height={860}
-                className="w-[88vw] max-w-[920px] h-auto object-contain drop-shadow-[0_0_80px_rgba(200,240,0,0.5)]"
+                className="w-[72vw] max-w-[760px] h-auto object-contain drop-shadow-[0_0_80px_rgba(200,240,0,0.5)]"
                 priority
               />
               {phase === "dissolve" &&
