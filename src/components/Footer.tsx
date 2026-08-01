@@ -21,7 +21,7 @@ export function Footer() {
   return (
     <footer className="relative bg-[#050505] pt-16 pb-16 overflow-hidden border-t border-zinc-900">
       {/* Moving linear SYNTEKS watermark — lifted so letters aren't clipped */}
-      <div className="absolute inset-x-0 bottom-8 md:bottom-12 overflow-hidden pointer-events-none select-none">
+      <div className="absolute inset-x-0 bottom-20 md:bottom-24 overflow-hidden pointer-events-none select-none">
         <div className="flex w-max animate-slide whitespace-nowrap items-center">
           {[0, 1].map((copy) => (
             <span

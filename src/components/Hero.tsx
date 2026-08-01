@@ -78,9 +78,9 @@ export function Hero() {
               <Image
                 src="/logo.png"
                 alt="Synteks"
-                width={520}
-                height={380}
-                className="w-[300px] sm:w-[400px] md:w-[480px] lg:w-[520px] h-auto object-contain drop-shadow-[0_0_60px_rgba(200,240,0,0.4)]"
+                width={640}
+                height={460}
+                className="w-[360px] sm:w-[480px] md:w-[560px] lg:w-[620px] h-auto object-contain drop-shadow-[0_0_70px_rgba(200,240,0,0.45)]"
                 priority
               />
 
