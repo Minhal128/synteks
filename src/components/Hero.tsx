@@ -61,24 +61,26 @@ function Typewriter({ lines }: { lines: string[] }) {
   );
 }
 
-export function Hero() {
+export function Hero({ ready = true }: { ready?: boolean }) {
   const [phase, setPhase] = useState<Phase>("logo");
   const [estimateOpen, setEstimateOpen] = useState(false);
 
   useEffect(() => {
+    if (!ready) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setPhase("content");
       return;
     }
+    // ponytail: 1s hold then dissolve — timers must wait until IntroLoader finishes
     const hold = setTimeout(() => setPhase("dissolve"), 1000);
     return () => clearTimeout(hold);
-  }, []);
+  }, [ready]);
 
   useEffect(() => {
-    if (phase !== "dissolve") return;
+    if (!ready || phase !== "dissolve") return;
     const done = setTimeout(() => setPhase("content"), 1100);
     return () => clearTimeout(done);
-  }, [phase]);
+  }, [ready, phase]);
 
   return (
     <section className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden pt-24 pb-16">
@@ -118,16 +120,16 @@ export function Hero() {
         />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center w-full min-h-[420px] flex items-center justify-center">
+      <div className="relative z-10 w-full px-4 sm:px-6 text-center min-h-[420px] flex items-center justify-center">
         <AnimatePresence mode="wait">
           {(phase === "logo" || phase === "dissolve") && (
             <motion.div
               key="logo-intro"
-              className="relative flex items-center justify-center"
-              initial={{ opacity: 0, y: 80, scale: 0.85 }}
+              className="relative flex items-center justify-center w-full"
+              initial={{ opacity: 0, y: 60, scale: 0.9 }}
               animate={
                 phase === "dissolve"
-                  ? { opacity: 0, y: -40, scale: 1.08, filter: "blur(18px)" }
+                  ? { opacity: 0, y: -50, scale: 1.06, filter: "blur(18px)" }
                   : { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }
               }
               exit={{ opacity: 0 }}
@@ -140,9 +142,9 @@ export function Hero() {
               <Image
                 src="/logo.png"
                 alt="Synteks"
-                width={640}
-                height={460}
-                className="w-[360px] sm:w-[480px] md:w-[560px] lg:w-[620px] h-auto object-contain drop-shadow-[0_0_70px_rgba(200,240,0,0.45)]"
+                width={1200}
+                height={860}
+                className="w-[88vw] max-w-[920px] h-auto object-contain drop-shadow-[0_0_80px_rgba(200,240,0,0.5)]"
                 priority
               />
               {phase === "dissolve" &&
@@ -153,12 +155,12 @@ export function Hero() {
                     style={{
                       width: d.size,
                       height: d.size,
-                      left: `calc(50% + ${d.x}px)`,
+                      left: `calc(50% + ${d.x * 2}px)`,
                       top: "45%",
                       boxShadow: "0 0 8px rgba(200,240,0,0.6)",
                     }}
                     initial={{ opacity: 0.9, y: 0, scale: 1 }}
-                    animate={{ opacity: 0, y: -120 - (d.id % 5) * 20, scale: 0.2 }}
+                    animate={{ opacity: 0, y: -140 - (d.id % 5) * 24, scale: 0.2 }}
                     transition={{ duration: 1, delay: d.delay, ease: "easeOut" }}
                   />
                 ))}
@@ -171,7 +173,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full"
+              className="w-full max-w-5xl mx-auto"
             >
               <p className="font-display text-[10px] sm:text-xs tracking-[0.35em] text-primary mb-5 uppercase">
                 Building Tomorrow. Together.

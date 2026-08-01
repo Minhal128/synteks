@@ -27,7 +27,7 @@ export default function Home() {
         }`}
       >
         <Navbar />
-        <Hero />
+        <Hero ready={!loading} />
         <PainPointsSection />
         <ProcessSection />
         <ServicesSection />
