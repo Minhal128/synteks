@@ -5,7 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { FAQSection } from "@/components/FAQSection";
 import { Footer } from "@/components/Footer";
 import { ArrowUpRight, Loader2, CheckCircle2 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const contactInfo = [
   {
@@ -46,6 +46,21 @@ export default function ContactPage() {
     type: "success" | "error" | null;
     message: string;
   }>({ type: null, message: "" });
+
+  // ponytail: read estimate query without Suspense wrapper
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    const estimate = q.get("estimate");
+    if (!estimate) return;
+    const type = q.get("type") || "—";
+    const size = q.get("size") || "—";
+    setFormData((prev) => ({
+      ...prev,
+      message:
+        prev.message ||
+        `Hi Synteks — interested in a project.\nEstimate: ~$${estimate} at $20/hr\nType: ${type}\nSize: ${size}\n\nDetails:`,
+    }));
+  }, []);
 
   const validate = () => {
     const next: Partial<Record<keyof FormState, string>> = {};

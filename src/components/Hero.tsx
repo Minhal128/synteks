@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { EstimateModal } from "@/components/EstimateModal";
 
-// ponytail: timed intro phases — CSS/framer only, no GSAP timeline
 type Phase = "logo" | "dissolve" | "content";
 
 const DROPS = Array.from({ length: 14 }, (_, i) => ({
@@ -15,8 +15,55 @@ const DROPS = Array.from({ length: 14 }, (_, i) => ({
   size: 4 + (i % 4) * 2,
 }));
 
+const LINES = [
+  "Web2, Web3 & Mobile — built to ship",
+  "Smart contracts that survive mainnet",
+  "Apps users keep. Code you own.",
+  "Senior delivery at $20/hr — not $30+",
+  "From idea to deploy in weeks, not quarters",
+];
+
+function Typewriter({ lines }: { lines: string[] }) {
+  const [lineIdx, setLineIdx] = useState(0);
+  const [text, setText] = useState("");
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const full = lines[lineIdx];
+    const speed = deleting ? 28 : 55;
+    const pause = deleting && text === "" ? 400 : !deleting && text === full ? 2200 : speed;
+
+    const t = setTimeout(() => {
+      if (!deleting && text === full) {
+        setDeleting(true);
+        return;
+      }
+      if (deleting && text === "") {
+        setDeleting(false);
+        setLineIdx((i) => (i + 1) % lines.length);
+        return;
+      }
+      setText(full.slice(0, text.length + (deleting ? -1 : 1)));
+    }, pause);
+
+    return () => clearTimeout(t);
+  }, [text, deleting, lineIdx, lines]);
+
+  return (
+    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-5 text-gradient max-w-3xl mx-auto leading-[1.15] min-h-[1.3em]">
+      {text}
+      <motion.span
+        animate={{ opacity: [1, 0, 1] }}
+        transition={{ duration: 0.8, repeat: Infinity }}
+        className="inline-block w-[3px] h-[0.85em] bg-primary ml-1 align-middle"
+      />
+    </h1>
+  );
+}
+
 export function Hero() {
   const [phase, setPhase] = useState<Phase>("logo");
+  const [estimateOpen, setEstimateOpen] = useState(false);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -45,13 +92,28 @@ export function Hero() {
               "radial-gradient(ellipse, rgba(200,240,0,0.35) 0%, rgba(74,122,0,0.12) 45%, transparent 70%)",
           }}
         />
+        {/* Full hero grid */}
         <div
-          className="absolute inset-0 opacity-[0.07]"
+          className="absolute inset-0 opacity-[0.14]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(200,240,0,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(200,240,0,0.4) 1px, transparent 1px)",
-            backgroundSize: "64px 64px",
-            maskImage: "radial-gradient(ellipse 70% 60% at 50% 40%, black, transparent)",
+              "linear-gradient(rgba(200,240,0,0.45) 1px, transparent 1px), linear-gradient(90deg, rgba(200,240,0,0.45) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-[0.08]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.35) 1px, transparent 1px)",
+            backgroundSize: "192px 192px",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 55% at 50% 40%, transparent 20%, #050505 75%)",
           }}
         />
       </div>
@@ -83,7 +145,6 @@ export function Hero() {
                 className="w-[360px] sm:w-[480px] md:w-[560px] lg:w-[620px] h-auto object-contain drop-shadow-[0_0_70px_rgba(200,240,0,0.45)]"
                 priority
               />
-
               {phase === "dissolve" &&
                 DROPS.map((d) => (
                   <motion.span
@@ -112,40 +173,18 @@ export function Hero() {
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               className="w-full"
             >
-              <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="font-display text-[10px] sm:text-xs tracking-[0.35em] text-primary mb-5 uppercase"
-              >
+              <p className="font-display text-[10px] sm:text-xs tracking-[0.35em] text-primary mb-5 uppercase">
                 Building Tomorrow. Together.
-              </motion.p>
+              </p>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-5 text-gradient max-w-3xl mx-auto leading-[1.15]"
-              >
-                Web2, Web3 &amp; Mobile — built to ship
-              </motion.h1>
+              <Typewriter lines={LINES} />
 
-              <motion.p
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="text-sm sm:text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-10 leading-relaxed"
-              >
+              <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-10 leading-relaxed">
                 A software agency for products that need speed, security, and scale — without agency
                 bloat.
-              </motion.p>
+              </p>
 
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 w-full max-w-md sm:max-w-none mx-auto"
-              >
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 w-full max-w-md sm:max-w-none mx-auto">
                 <Link href="/contact">
                   <motion.button
                     whileHover={{ scale: 1.02 }}
@@ -155,20 +194,21 @@ export function Hero() {
                     Start a Project
                   </motion.button>
                 </Link>
-                <Link href="#services">
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full sm:w-auto px-8 py-3.5 bg-white/5 hover:bg-white/10 text-white font-medium rounded-xl border border-white/10 hover:border-primary/30 transition-all text-sm sm:text-base"
-                  >
-                    Our Services
-                  </motion.button>
-                </Link>
-              </motion.div>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setEstimateOpen(true)}
+                  className="w-full sm:w-auto px-8 py-3.5 bg-white/5 hover:bg-white/10 text-white font-medium rounded-xl border border-white/10 hover:border-primary/40 transition-all text-sm sm:text-base"
+                >
+                  Get Estimate
+                </motion.button>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
+
+      <EstimateModal open={estimateOpen} onClose={() => setEstimateOpen(false)} />
     </section>
   );
 }
