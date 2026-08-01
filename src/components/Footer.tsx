@@ -20,11 +20,17 @@ const footerLinks = [
 export function Footer() {
   return (
     <footer className="relative bg-[#050505] pt-16 pb-8 overflow-hidden border-t border-zinc-900">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 text-[12vw] md:text-[16vw] font-display text-zinc-900/80 whitespace-nowrap select-none tracking-wider"
-        >
-          SYNTEKS
+      {/* Moving linear SYNTEKS watermark */}
+      <div className="absolute inset-x-0 bottom-0 h-[40%] overflow-hidden pointer-events-none select-none">
+        <div className="flex w-max animate-slide whitespace-nowrap">
+          {[0, 1].map((copy) => (
+            <span
+              key={copy}
+              className="font-display text-[14vw] md:text-[12vw] leading-none text-zinc-900 tracking-wider px-8"
+            >
+              SYNTEKS&nbsp;&nbsp;SYNTEKS&nbsp;&nbsp;SYNTEKS&nbsp;&nbsp;
+            </span>
+          ))}
         </div>
       </div>
 
@@ -35,9 +41,9 @@ export function Footer() {
               <Image
                 src="/logo.png"
                 alt="Synteks"
-                width={140}
-                height={48}
-                className="h-12 w-auto object-contain"
+                width={220}
+                height={80}
+                className="h-16 sm:h-20 w-auto object-contain"
               />
             </Link>
             <p className="text-gray-500 text-sm max-w-xs">
