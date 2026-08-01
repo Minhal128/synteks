@@ -42,14 +42,14 @@ export function LaptopSection() {
     offset: ["start end", "center center"],
   });
 
-  // Scroll pe dashboard up aata hai
-  const y = useTransform(scrollYProgress, [0, 1], [180, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [0.88, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.35], [0.2, 1]);
-  const rotateX = useTransform(scrollYProgress, [0, 1], [12, 0]);
+  // ponytail: small lift only — big y offset was the empty gap under hero
+  const y = useTransform(scrollYProgress, [0, 1], [40, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.96, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [0.85, 1]);
+  const rotateX = useTransform(scrollYProgress, [0, 1], [4, 0]);
 
   return (
-    <section ref={containerRef} className="relative py-8 md:py-16 overflow-hidden">
+    <section ref={containerRef} className="relative pt-2 pb-8 md:pt-4 md:pb-12 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-[#0a0a08] to-[#050505]" />
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[800px] h-[300px] md:h-[500px] rounded-full blur-[120px] opacity-30 pointer-events-none"
