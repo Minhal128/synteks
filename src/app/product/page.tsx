@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
 import { FAQSection } from "@/components/FAQSection";
 import { Footer } from "@/components/Footer";
-import { LaptopSection } from "@/components/LaptopSection";
+import { ProcessSection } from "@/components/ProcessSection";
 import { useRef, useEffect, useState } from "react";
 import { ArrowRight, Sparkles, Zap, TrendingUp, Users, Rocket } from "lucide-react";
 import Image from "next/image";
@@ -118,7 +118,7 @@ export default function ProductPage() {
         </div>
       </section>
 
-      <LaptopSection />
+      <ProcessSection />
 
       <section className="py-20 border-t border-zinc-800/50 relative overflow-hidden">
         <div

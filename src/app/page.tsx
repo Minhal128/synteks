@@ -3,7 +3,8 @@
 import { useCallback, useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { LaptopSection } from "@/components/LaptopSection";
+import { PainPointsSection } from "@/components/PainPointsSection";
+import { ProcessSection } from "@/components/ProcessSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { PricingSection } from "@/components/PricingSection";
 import { PortfolioSection } from "@/components/PortfolioSection";
@@ -27,7 +28,8 @@ export default function Home() {
       >
         <Navbar />
         <Hero />
-        <LaptopSection />
+        <PainPointsSection />
+        <ProcessSection />
         <ServicesSection />
         <PricingSection />
         <PortfolioSection />
