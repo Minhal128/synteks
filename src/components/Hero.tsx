@@ -81,7 +81,7 @@ export function Hero() {
   }, [phase]);
 
   return (
-    <section className="relative flex flex-col items-center justify-center overflow-hidden pt-28 sm:pt-32 pb-6 sm:pb-8">
+    <section className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden pt-24 pb-16">
       <div className="absolute inset-0 bg-[#050505]" />
 
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -118,7 +118,7 @@ export function Hero() {
         />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center w-full flex items-center justify-center">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center w-full min-h-[420px] flex items-center justify-center">
         <AnimatePresence mode="wait">
           {(phase === "logo" || phase === "dissolve") && (
             <motion.div
